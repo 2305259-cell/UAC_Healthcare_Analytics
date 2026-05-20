@@ -32,7 +32,6 @@ def load_data():
     # Correct CSV path
     file_path = os.path.join(
         BASE_DIR,
-        "outputs",
         "cleaned_uac_healthcare_data.csv"
     )
 
