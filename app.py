@@ -27,15 +27,18 @@ st.markdown("Healthcare Capacity & Care Load Monitoring System")
 def load_data():
 
     # Get project root folder
-   BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    BASE_DIR = os.path.dirname(
+        os.path.dirname(
+            os.path.dirname(__file__)
+        )
+    )
 
     # Correct CSV path
-   file_path = os.path.join(
-    BASE_DIR,
-    "cleaned_uac_healthcare_data.csv"
-)
-
-df = pd.read_csv(file_path)
+    file_path = os.path.join(
+        BASE_DIR,
+        "outputs",
+        "cleaned_uac_healthcare_data.csv"
+    )
 
     # Read CSV
     df = pd.read_csv(file_path)
