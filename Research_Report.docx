@@ -1,0 +1,40 @@
+SYSTEM CAPACITY & CARE LOAD ANALYTICS FOR UNACCOMPANIED CHILDREN
+INTRODUCTION:
+This project analyzes healthcare system capacity and care load trends for the Unaccompanied Alien Children (UAC) Program. The goal is to monitor system pressure, inflow-outflow balance, backlog accumulation, and operational sustainability using healthcare analytics techniques.
+OBJECTIVES:
+• Analyze total system care load
+• Identify stress and overload periods
+• Measure intake and discharge balance
+• Monitor backlog accumulation
+• Build an interactive Streamlit dashboard
+dataset description
+| Column             | Description                  |
+| ------------------ | ---------------------------- |
+| Date               | Reporting date               |
+| CBP Intake         | Daily apprehensions          |
+| CBP Custody        | Children in CBP custody      |
+| Transferred to HHS | Children transferred to HHS  |
+| HHS Care           | Children under HHS care      |
+| Discharged         | Children reunited/discharged |
+METHODOLOGY:
+The dataset was cleaned and processed using Python and Pandas. Missing values were handled using forward filling techniques. Multiple healthcare capacity metrics were engineered including Total System Load, Net Daily Intake, Growth Rate, Backlog Indicator, Rolling Averages, and Volatility Index.
+kpis:
+Explain:
+
+Total System Load
+
+Total children under healthcare supervision.
+
+Net Daily Intake
+
+Difference between transfers and discharges.
+
+Backlog Indicator
+
+Cumulative pressure on the system.
+
+Volatility Index
+
+Measures instability in healthcare load.
+CONCLUSION:
+The project successfully developed a healthcare analytics framework for monitoring the UAC care system. The dashboard improves visibility into operational pressure, system sustainability, and humanitarian response management.
