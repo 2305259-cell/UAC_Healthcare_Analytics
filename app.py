@@ -41,10 +41,47 @@ def load_data():
     # Read CSV
     df = pd.read_csv(file_path)
 
+    # Keep first 6 columns only
+    df = df.iloc[:, :6]
+
+    # Rename columns properly
+    df.columns = [
+        'Date',
+        'CBP_Intake',
+        'CBP_Custody',
+        'Transferred_to_HHS',
+        'HHS_Care',
+        'Discharged'
+    ]
+
     # Convert date
     df['Date'] = pd.to_datetime(df['Date'])
 
-    # Create required calculated columns
+    # Convert numeric columns
+    numeric_cols = [
+        'CBP_Intake',
+        'CBP_Custody',
+        'Transferred_to_HHS',
+        'HHS_Care',
+        'Discharged'
+    ]
+
+    for col in numeric_cols:
+        df[col] = (
+            df[col]
+            .astype(str)
+            .str.replace(',', '', regex=False)
+        )
+
+        df[col] = pd.to_numeric(
+            df[col],
+            errors='coerce'
+        )
+
+    # Fill missing values
+    df = df.fillna(0)
+
+    # Create calculated columns
     df['Total_System_Load'] = (
         df['CBP_Custody'] + df['HHS_Care']
     )
@@ -60,9 +97,6 @@ def load_data():
     df['Backlog'] = (
         df['CBP_Custody'] - df['Transferred_to_HHS']
     )
-
-    # Fill missing values
-    df = df.fillna(0)
 
     return df
 
