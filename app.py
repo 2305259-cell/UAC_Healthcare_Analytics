@@ -37,9 +37,18 @@ def load_data():
     if not os.path.exists(file_path):
         st.error("CSV file not found!")
         st.stop()
+        
 
     # Read CSV
     df = pd.read_csv(file_path)
+        # Convert date safely
+    df['Date'] = pd.to_datetime(
+        df['Date'],
+        errors='coerce'
+    )
+
+    # Remove invalid dates
+    df = df.dropna(subset=['Date'])
 
     # Keep first 6 columns only
     df = df.iloc[:, :6]
@@ -54,15 +63,8 @@ def load_data():
         'Discharged'
     ]
 
-    # Convert date
-  # Convert date safely
-df['Date'] = pd.to_datetime(
-    df['Date'],
-    errors='coerce'
-)
 
-# Remove invalid dates
-df = df.dropna(subset=['Date'])
+
 
 
     # Convert numeric columns
