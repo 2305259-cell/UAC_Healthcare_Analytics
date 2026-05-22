@@ -26,20 +26,43 @@ st.markdown("Healthcare Capacity & Care Load Monitoring System")
 @st.cache_data
 def load_data():
 
-    # Get project root folder
     BASE_DIR = os.path.dirname(__file__)
 
-    # Correct CSV path
     file_path = os.path.join(
         BASE_DIR,
         "HHS_Unaccompanied_Alien_Children_Program.csv"
     )
+
+    # Check CSV exists
+    if not os.path.exists(file_path):
+        st.error("CSV file not found!")
+        st.stop()
 
     # Read CSV
     df = pd.read_csv(file_path)
 
     # Convert date
     df['Date'] = pd.to_datetime(df['Date'])
+
+    # Create required calculated columns
+    df['Total_System_Load'] = (
+        df['CBP_Custody'] + df['HHS_Care']
+    )
+
+    df['Net_Daily_Intake'] = (
+        df['CBP_Intake'] - df['Discharged']
+    )
+
+    df['Volatility_Index'] = (
+        df['CBP_Custody'].diff().abs()
+    )
+
+    df['Backlog'] = (
+        df['CBP_Custody'] - df['Transferred_to_HHS']
+    )
+
+    # Fill missing values
+    df = df.fillna(0)
 
     return df
 
