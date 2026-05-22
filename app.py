@@ -32,7 +32,7 @@ def load_data():
     # Correct CSV path
     file_path = os.path.join(
         BASE_DIR,
-        "cleaned_uac_healthcare_data.csv"
+        "HHS_Unaccompanied_Alien_Children_Program.csv"
     )
 
     # Read CSV
@@ -66,6 +66,10 @@ filtered_df = df[
     (df['Date'] >= pd.to_datetime(start_date)) &
     (df['Date'] <= pd.to_datetime(end_date))
 ]
+# Handle empty dataframe
+if filtered_df.empty:
+    st.warning("No data available for selected date range.")
+    st.stop()
 
 # -------------------------------
 # KPI SECTION
