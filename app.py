@@ -55,7 +55,13 @@ def load_data():
     ]
 
     # Convert date
-    df['Date'] = pd.to_datetime(df['Date'])
+   df['Date'] = pd.to_datetime(
+    df['Date'],
+    errors='coerce'
+)
+
+# Remove invalid dates
+df = df.dropna(subset=['Date'])
 
     # Convert numeric columns
     numeric_cols = [
